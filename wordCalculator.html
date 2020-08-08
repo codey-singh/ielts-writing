@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Word Calculator</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      textarea {
+        width: 100%;
+	background: #eaeee8;
+        height: 120px;
+        font-size: 20px;
+        border: 3px solid #ccc;
+	border-radius: 3px;
+        padding: 5px;
+        font-family: "Droid Sans Mono", "monospace", monospace,
+          "Droid Sans Fallback", "PowelineSymbols" Tahoma, sans-serif;
+        background-position: bottom right;
+        background-repeat: no-repeat;
+      }
+
+      body {
+        background: #d0ddd9;
+      }      
+
+      #numWords {
+        font-weight: bold;
+      }
+      
+      textarea#text {
+          height: 700px;
+      }
+    </style>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<div class="container">
+<a class="navbar-brand" href="javascript:void(0)">Word Calculator</a>
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Home</a>
+    </li>
+  </ul>
+  </div>
+</nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mt-4">
+          <textarea></textarea>
+        </div>
+      </div>
+		<div class="row">
+			 <form class="form-inline">
+			 <div class="form-group">
+				 <div class="col-md-12">
+			Word Count <span id="numWords" class="badge badge-primary">0</span> &nbsp;
+
+			<select id="task" class="form-control" custom>
+				<option value="essay">Essay</option> 
+				<option value="letter">Letter</option>
+			</select>
+			 </div>
+			</form>
+			</div>
+
+			<div class="col-md-12 mt-2">
+			<textarea name="text" id="text"></textarea>
+			</div>
+		</div>
+    </div>
+	<script src="https://code.jquery.com/jquery-3.5.0.slim.min.js" 
+	integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs=" crossorigin="anonymous"></script>
+    <script>
+	  $("#text").on('change keyup paste', function() {
+	  	let type = $('#task').val();
+	  	console.log(type);
+	  	let limit = type === 'essay' ? 250 : 150;
+		let words = $('#text').val().trim();
+		let numWords = words.split(' ').length;
+		if(words.trim().length === 0) numWords = 0;
+		if(numWords >= limit) $('#numWords').removeClass('badge-danger').addClass('badge-success');
+		else $('#numWords').removeClass('badge-success').addClass('badge-danger');
+		$('#numWords').text(numWords);
+	  });
+    </script>
+  </body>
+</html>
